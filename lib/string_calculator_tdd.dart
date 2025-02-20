@@ -5,12 +5,21 @@ class StringCalculator {
     String delimiterPattern = '[,\n]';
     if (numbers.startsWith('//')) {
       final parts = numbers.split('\n');
-      delimiterPattern = RegExp.escape(parts[0].substring(2));
+
+      // ✅ Check for multi-character delimiter format
+      final delimiterMatch = RegExp(r'//\[(.*?)\]').firstMatch(parts[0]);
+      if (delimiterMatch != null) {
+        delimiterPattern = RegExp.escape(delimiterMatch.group(1)!);
+      } else {
+        delimiterPattern = RegExp.escape(parts[0].substring(2));
+      }
+
       numbers = parts[1];
     }
 
     var numList = numbers
         .split(RegExp(delimiterPattern))
+        .where((n) => n.isNotEmpty)
         .map(int.parse)
         .toList();
 
@@ -19,10 +28,6 @@ class StringCalculator {
       throw Exception('Negative numbers not allowed: ${negatives.join(", ")}');
     }
 
-    // ✅ Ignore numbers > 1000 **before summing**
-    var filteredNumbers = numList.where((n) => n <= 1000).toList();
-    print('Filtered numbers: $filteredNumbers'); // Debugging Output
-
-    return filteredNumbers.fold(0, (a, b) => a + b);
+    return numList.where((n) => n <= 1000).fold(0, (a, b) => a + b);
   }
 }
