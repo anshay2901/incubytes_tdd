@@ -6,10 +6,14 @@ class StringCalculator {
     if (numbers.startsWith('//')) {
       final parts = numbers.split('\n');
 
-      // ✅ Check for multi-character delimiter format
-      final delimiterMatch = RegExp(r'//\[(.*?)\]').firstMatch(parts[0]);
+      // ✅ Check for multiple delimiters in format: //[delim1][delim2]\n
+      final delimiterMatch = RegExp(r'//(\[.*?\])+').firstMatch(parts[0]);
       if (delimiterMatch != null) {
-        delimiterPattern = RegExp.escape(delimiterMatch.group(1)!);
+        delimiterPattern = parts[0]
+            .substring(2)
+            .split(RegExp(r'\]\[')) // Split multiple delimiters
+            .map((d) => RegExp.escape(d.replaceAll(RegExp(r'[\[\]]'), ''))) // Remove brackets
+            .join('|'); // Combine into regex pattern
       } else {
         delimiterPattern = RegExp.escape(parts[0].substring(2));
       }
