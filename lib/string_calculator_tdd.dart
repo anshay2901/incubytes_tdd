@@ -9,13 +9,20 @@ class StringCalculator {
       numbers = parts[1];
     }
 
-    var numList = numbers.split(RegExp(delimiterPattern)).map(int.parse).toList();
+    var numList = numbers
+        .split(RegExp(delimiterPattern))
+        .map(int.parse)
+        .toList();
 
     var negatives = numList.where((n) => n < 0).toList();
     if (negatives.isNotEmpty) {
       throw Exception('Negative numbers not allowed: ${negatives.join(", ")}');
     }
 
-    return numList.reduce((a, b) => a + b);
+    // ✅ Ignore numbers > 1000 **before summing**
+    var filteredNumbers = numList.where((n) => n <= 1000).toList();
+    print('Filtered numbers: $filteredNumbers'); // Debugging Output
+
+    return filteredNumbers.fold(0, (a, b) => a + b);
   }
 }

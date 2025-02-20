@@ -44,4 +44,13 @@ void main() {
       );
     });
   });
+  test('ignores numbers greater than 1000', () {
+    final calculator = StringCalculator();
+    expect(calculator.add('2,1001'), equals(2));
+    expect(calculator.add('1000,2'), equals(1002)); // 1000 should be included
+    expect(calculator.add('1500,500,2000,1000,1'), equals(1501)); // 1500, 2000 ignored
+  });
+
+
+
 }

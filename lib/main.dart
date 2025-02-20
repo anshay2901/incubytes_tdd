@@ -4,7 +4,7 @@ void main() {
   final calculator = StringCalculator();
 
   try {
-    print(calculator.add('1,-2,3,-4'));
+    print(calculator.add('1500,500,2000,1000,1'));
   } catch (e) {
     print('Error: $e'); // Should display the correct error message
   }
