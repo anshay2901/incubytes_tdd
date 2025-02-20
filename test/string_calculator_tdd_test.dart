@@ -15,11 +15,15 @@ void main() {
       final calculator = StringCalculator();
       expect(calculator.add('1,2'), equals(3));
     });
-
     test('returns sum of multiple numbers', () {
       final calculator = StringCalculator();
       expect(calculator.add('1,2,3,4'), equals(10));
     });
+    test('handles new line as delimiter', () {
+      final calculator = StringCalculator();
+      expect(calculator.add('1\n2,3'), equals(6));
+    });
+
 
   });
 }
