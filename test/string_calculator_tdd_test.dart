@@ -60,6 +60,9 @@ void main() {
     expect(calculator.add('//[*][%]\n1*2%3'), equals(6));
   });
 
-
+  test('supports multiple delimiters with more than one character', () {
+    final calculator = StringCalculator();
+    expect(calculator.add('//[***][%%%]\n1***2%%%3'), equals(6));
+  });
 
 }

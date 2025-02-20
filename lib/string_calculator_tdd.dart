@@ -6,7 +6,7 @@ class StringCalculator {
     if (numbers.startsWith('//')) {
       final parts = numbers.split('\n');
 
-      // ✅ Check for multiple delimiters in format: //[delim1][delim2]\n
+      // ✅ Check for multiple delimiters with varying lengths: //[delim1][delim2]\n
       final delimiterMatch = RegExp(r'//(\[.*?\])+').firstMatch(parts[0]);
       if (delimiterMatch != null) {
         delimiterPattern = parts[0]
