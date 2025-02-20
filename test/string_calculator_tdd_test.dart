@@ -11,5 +11,10 @@ void main() {
       final calculator = StringCalculator();
       expect(calculator.add('1'), equals(1));
     });
+    test('returns sum of two numbers', () {
+      final calculator = StringCalculator();
+      expect(calculator.add('1,2'), equals(3));
+    });
+
   });
 }
